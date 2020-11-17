@@ -8,29 +8,29 @@ from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
 
 
-class Net(nn.Module):
-    def __init__(self):
+class Net(nn.Module):   #定义一个网络Net，网络由2层的卷积构成
+    def __init__(self):     #定义网络有什么层
         super(Net, self).__init__()
-        self.conv1 = nn.Conv2d(1, 32, 3, 1)
-        self.conv2 = nn.Conv2d(32, 64, 3, 1)
-        self.dropout1 = nn.Dropout(0.25)
+        self.conv1 = nn.Conv2d(1, 32, 3, 1)    # 输入通道数为1，输出通道数为32
+        self.conv2 = nn.Conv2d(32, 64, 3, 1)    # 输入通道数为32，输出通道数为64.Applies a 2D convolution over an input signal composed of several input planes.
+        self.dropout1 = nn.Dropout(0.25)    #让某个神经元的激活值以一定的概率p（默认是0.5）停止工作，这样可以使模型泛化性更强，防止过拟合
         self.dropout2 = nn.Dropout(0.5)
-        self.fc1 = nn.Linear(9216, 128)
+        self.fc1 = nn.Linear(9216, 128) #Applies a linear transformation to the incoming data: y = xA^T + b
         self.fc2 = nn.Linear(128, 10)
 
-    def forward(self, x):
+    def forward(self, x):   #定义网络的前向传播的顺序
         x = self.conv1(x)
         x = F.relu(x)
         x = self.conv2(x)
         x = F.relu(x)
-        x = F.max_pool2d(x, 2)
+        x = F.max_pool2d(x, 2)#Applies a 2D max pooling over an input signal composed of several input planes.
         x = self.dropout1(x)
-        x = torch.flatten(x, 1)
+        x = torch.flatten(x, 1) #Flattens a contiguous range of dims in a tensor.
         x = self.fc1(x)
         x = F.relu(x)
         x = self.dropout2(x)
         x = self.fc2(x)
-        output = F.log_softmax(x, dim=1)
+        output = F.log_softmax(x, dim=1)    #Softmax的含义就在于不再唯一的确定某一个最大值，而是为每个输出分类的结果都赋予一个概率值，表示属于每个类别的可能性。
         return output
 
 
@@ -60,7 +60,7 @@ def test(model, device, test_loader):
             data, target = data.to(device), target.to(device)
             output = model(data)
             test_loss += F.nll_loss(output, target, reduction='sum').item()  # sum up batch loss
-            pred = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
+            pred = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability返回指定维度最大值的序号
             correct += pred.eq(target.view_as(pred)).sum().item()
 
     test_loss /= len(test_loader.dataset)
@@ -127,7 +127,7 @@ def main():
     for epoch in range(1, args.epochs + 1):
         train(args, model, device, train_loader, optimizer, epoch)
         test(model, device, test_loader)
-        scheduler.step()
+        scheduler.step()    #学习率
 
     if args.save_model:
         torch.save(model.state_dict(), "mnist_cnn.pt")
