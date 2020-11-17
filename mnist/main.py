@@ -12,7 +12,7 @@ class Net(nn.Module):   #定义一个网络Net，网络由2层的卷积构成
     def __init__(self):     #定义网络有什么层
         super(Net, self).__init__()
         self.conv1 = nn.Conv2d(1, 32, 3, 1)    # 输入通道数为1，输出通道数为32
-        self.conv2 = nn.Conv2d(32, 64, 3, 1)    # 输入通道数为32，输出通道数为64.Applies a 2D convolution over an input signal composed of several input planes.
+        self.conv2 = nn.Conv2d(32, 64, 3, 1)    # 输入通道数为32，输出通道数为64.    Applies a 2D convolution over an input signal composed of several input planes.
         self.dropout1 = nn.Dropout(0.25)    #让某个神经元的激活值以一定的概率p（默认是0.5）停止工作，这样可以使模型泛化性更强，防止过拟合
         self.dropout2 = nn.Dropout(0.5)
         self.fc1 = nn.Linear(9216, 128) #Applies a linear transformation to the incoming data: y = xA^T + b
@@ -74,7 +74,7 @@ def main():
     # Training settings
     parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
     parser.add_argument('--batch-size', type=int, default=64, metavar='N',
-                        help='input batch size for training (default: 64)')
+                        help='input batch size for training (default: 64)')#定义单个的命令行参数应当如何解析.自动生成帮助和使用手册，并在用户给程序传入无效参数时报出错误信息
     parser.add_argument('--test-batch-size', type=int, default=1000, metavar='N',
                         help='input batch size for testing (default: 1000)')
     parser.add_argument('--epochs', type=int, default=14, metavar='N',
