@@ -3,7 +3,7 @@ import argparse
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import torch.optim as optim
+import torch.optim as optim #优化器
 from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
 
@@ -96,7 +96,7 @@ def main():
     args = parser.parse_args()
     use_cuda = not args.no_cuda and torch.cuda.is_available()
 
-    torch.manual_seed(args.seed)
+    torch.manual_seed(args.seed)    #Sets the seed for generating random numbers
 
     device = torch.device("cuda" if use_cuda else "cpu")
 
