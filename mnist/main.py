@@ -6,7 +6,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim #优化器
 from torchvision import datasets, transforms
-from torch.optim.lr_scheduler import StepLR
+from torch.optim.lr_scheduler import StepLR #LR是learning rate
 
 
 class Net(nn.Module):   #定义一个网络Net，网络由2层的卷积构成
