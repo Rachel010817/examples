@@ -75,7 +75,7 @@ def main():
     # Training settings
     parser = argparse.ArgumentParser(description='PyTorch MNIST Example')#定义单个的命令行参数应当如何解析.自动生成帮助和使用手册，并在用户给程序传入无效参数时报出错误信息
     parser.add_argument('--batch-size', type=int, default=64, metavar='N',  #规定批尺寸
-                        help='input batch size for training (default: 64)')息
+                        help='input batch size for training (default: 64)')
     parser.add_argument('--test-batch-size', type=int, default=1000, metavar='N',
                         help='input batch size for testing (default: 1000)')
     parser.add_argument('--epochs', type=int, default=14, metavar='N',  #训练14次
